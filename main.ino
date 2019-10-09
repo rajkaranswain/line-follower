@@ -1,72 +1,90 @@
-int s1=0; // all the initial values are set to zero
-int s2=0;
-int s3=0;
-int s4=0;
-int s5=0;
-int s6=0;
-int s7=0;
-int s8=0;
+#define black 1
+#define white 0
 
-const int lmf=10; // left motor forward
-const int lmb=11; // left motor backward
-const int rmf=12; // right motor forward
-const int rmb=13; // right motor backward
+//sensor pins
+const int IR1 = A0;   
+const int IR2 = A1;   
+const int IR3 = A2;
+const int IR4 = A3;
+const int IR5 = A4;
+const int IR6 = A5;
+const int IR7 = 3;
+const int IR8 = 4;
+
+//Motor control pins-
+const int pwmA = 5;
+const int MOT0 = 6;
+const int MOT1 = 7;
+const int MOT2 = 8;
+const int MOT3 = 9;
+const int pwmB = 10;
+
 void setup() {
-  // put your setup code here, to run once:
-pinMode(2,INPUT);// start the pin mode from 2 leave the pin 0 and 1 as this pins are RX TX you need to open the pins every time you upload a code.so its better to avoid this pins.
-pinMode(3,INPUT);
-pinMode(4,INPUT);
-pinMode(5,INPUT);
-pinMode(6,INPUT);
-pinMode(7,INPUT);
-pinMode(8,INPUT);
-pinMode(9,INPUT);
-
-pinMode(lmf,OUTPUT);
-pinMode(lmb,OUTPUT);
-pinMode(rmf,OUTPUT);
-pinMode(rmb,OUTPUT);
-Serial.begin(9600);
+  pinMode(MOT0, OUTPUT);
+  pinMode(MOT1, OUTPUT);
+  pinMode(MOT2, OUTPUT);
+  pinMode(MOT3, OUTPUT);
+  
+  pinMode(IR1, INPUT);
+  pinMode(IR2, INPUT);
+  pinMode(IR3, INPUT);
+  pinMode(IR4, INPUT);
+  pinMode(IR5, INPUT);
+  pinMode(IR6, INPUT);
+  pinMode(IR7, INPUT);
+  pinMode(IR8, INPUT);
+  
+  analogWrite(pwmA, 60);
+  analogWrite(pwmB, 60);
 }
-
 void loop() {
-  s1=digitalRead(2);
-  s2=digitalRead(3);
-  s3=digitalRead(4);
-  s4=digitalRead(5);
-  s5=digitalRead(6);
-  s6=digitalRead(7);
-  s7=digitalRead(8);
-  s8=digitalRead(9);
- 
+
+  int s1 = digitalRead(IR1);
+  int s2 = digitalRead(IR2);
+  int s3 = digitalRead(IR3);
+  int s4 = digitalRead(IR4);
+  int s5 = digitalRead(IR5);
+  int s6 = digitalRead(IR6);
+  int s7 = digitalRead(IR7);
+  int s8 = digitalRead(IR8);
   
-  
-  // put your main code here, to run repeatedly:
-  //forward
-if((s4==0||s5==0));
-{digitalWrite(rmf, HIGH);
-digitalWrite(rmb, LOW);
-digitalWrite(lmf, HIGH);
-digitalWrite(lmb, LOW);
-delay(10);
- }
- //right
- if((s6==0||s7==0||s8==0))
+  // print the sensor values:
+
+  //Conditions to drive line folower appropriately
+ if((s4==0 && s5==0));
 {
-digitalWrite(rmf, LOW);
-digitalWrite(rmb, LOW);
-digitalWrite(lmf, HIGH);
-digitalWrite(lmb, LOW);
-delay(10);
+    digitalWrite(MOT0, LOW);
+    digitalWrite(MOT1, HIGH);
+    digitalWrite(MOT2, LOW);
+    digitalWrite(MOT3, HIGH);
+  delay(10);
+}
+//right
+if((s6==0||s7==0||s8==0))
+{
+    digitalWrite(MOT0, LOW);
+    digitalWrite(MOT1, LOW);
+    digitalWrite(MOT2, LOW);
+    digitalWrite(MOT3, HIGH);
+  delay(10);
 }
 
 //left
-if((s1==0||s2==0||s3==0))
+if((s1==0 || s2==0 ||s3==0))
 {
-digitalWrite(rmf, HIGH);
-digitalWrite(rmb, LOW);
-digitalWrite(lmf, LOW);
-digitalWrite(lmb, LOW);
-delay(10);
+    digitalWrite(MOT0, LOW);
+    digitalWrite(MOT1, HIGH);
+    digitalWrite(MOT2, LOW);
+    digitalWrite(MOT3, LOW);
+  delay(10);
+}
+
+//stop
+if((s1==0 && s2==0 && s3==0 && s4==0 && s5==0 && s6==0 && s7==0 && s8==0))
+{
+  digitalWrite(MOT0, LOW);
+  digitalWrite(MOT1, LOW);
+  digitalWrite(MOT2, LOW);
+  digitalWrite(MOT3, LOW);
 }
 }
