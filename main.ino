@@ -7,9 +7,6 @@ const int IR2 = A1;
 const int IR3 = A2;
 const int IR4 = A3;
 const int IR5 = A4;
-const int IR6 = A5;
-const int IR7 = 3;
-const int IR8 = 4;
 
 //Motor control pins-
 const int pwmA = 5;
@@ -30,10 +27,7 @@ void setup() {
   pinMode(IR3, INPUT);
   pinMode(IR4, INPUT);
   pinMode(IR5, INPUT);
-  pinMode(IR6, INPUT);
-  pinMode(IR7, INPUT);
-  pinMode(IR8, INPUT);
-  
+
   analogWrite(pwmA, 60);
   analogWrite(pwmB, 60);
 }
@@ -44,14 +38,12 @@ void loop() {
   int s3 = digitalRead(IR3);
   int s4 = digitalRead(IR4);
   int s5 = digitalRead(IR5);
-  int s6 = digitalRead(IR6);
-  int s7 = digitalRead(IR7);
-  int s8 = digitalRead(IR8);
   
   // print the sensor values:
 
   //Conditions to drive line folower appropriately
- if((s4==0 && s5==0));
+//forward
+//if(condition)
 {
     digitalWrite(MOT0, LOW);
     digitalWrite(MOT1, HIGH);
@@ -60,7 +52,7 @@ void loop() {
   delay(10);
 }
 //right
-if((s6==0||s7==0||s8==0))
+//if(condition)
 {
     digitalWrite(MOT0, LOW);
     digitalWrite(MOT1, LOW);
@@ -70,7 +62,7 @@ if((s6==0||s7==0||s8==0))
 }
 
 //left
-if((s1==0 || s2==0 ||s3==0))
+//if(condition)
 {
     digitalWrite(MOT0, LOW);
     digitalWrite(MOT1, HIGH);
@@ -80,11 +72,11 @@ if((s1==0 || s2==0 ||s3==0))
 }
 
 //stop
-if((s1==0 && s2==0 && s3==0 && s4==0 && s5==0 && s6==0 && s7==0 && s8==0))
+if(s1==0 && s2==0 && s3==0 && s4==0 && s5==0)
 {
-  digitalWrite(MOT0, LOW);
-  digitalWrite(MOT1, LOW);
-  digitalWrite(MOT2, LOW);
-  digitalWrite(MOT3, LOW);
+    digitalWrite(MOT0, LOW);
+    digitalWrite(MOT1, LOW);
+    digitalWrite(MOT2, LOW);
+    digitalWrite(MOT3, LOW);
 }
 }
